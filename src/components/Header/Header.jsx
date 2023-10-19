@@ -120,8 +120,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
     { name: 'Stores', href: '#' },
+    { name: 'Contact', href: '/contact' },
   ],
 }
 

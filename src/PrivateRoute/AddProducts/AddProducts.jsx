@@ -34,7 +34,7 @@ const AddProducts = () => {
       img4
     }
 
-    console.log(newProduct) // checking if the data is being captured or not // working fine
+    // console.log(newProduct) // checking if the data is being captured or not // working fine
 
     // send data to server
     fetch('http://localhost:5000/products', {
