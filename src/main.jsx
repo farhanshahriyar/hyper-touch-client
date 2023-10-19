@@ -10,6 +10,10 @@ import Root from './components/Root/Root.jsx';
 import Home from './pages/Home/Home.jsx'
 import Login from './pages/Login/Login.jsx'
 import Register from './pages/Register/Register.jsx'
+import AddProducts from './PrivateRoute/AddProducts/AddProducts.jsx';
+import ProductDetails from './pages/Products/ProductDetails/ProductDetails.jsx';
+// import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts.jsx';
+// import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +31,24 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register/>,
-      }
+      },
+      {
+        path: "/product-details",
+        element: <ProductDetails/>,
+      },
+     
+      {
+        path: "/add-products",
+        element: <AddProducts/>,
+      },
+      // {
+      //   path: "/update-products",
+      //   element: <UpdateProducts/>,
+      // },
+      // {
+      //   path: "/delete-products",
+      //   element: <DeleteProducts/>,
+      // }
     ]
   },
 ]);
