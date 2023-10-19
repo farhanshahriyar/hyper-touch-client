@@ -1,6 +1,9 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+// import Cart from '../../components/Cart/Cart.jsx'
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const navigation = {
   categories: [
@@ -131,6 +134,44 @@ function classNames(...classes) {
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const [user, setUser] = useState(null);
+  // const location = useLocation();
+  
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setUser(user);
+        } else {
+            setUser(null);
+        }
+    });
+
+    return () => unsubscribe();
+}, []);
+
+const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        setUser(null);
+        Swal.fire ({
+          title: "Logged Out",
+          text: "You have been logged out successfully",
+          icon: "success",
+          button: "OK",
+        });
+    }).catch((error) => {
+        Swal.fire ({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+          button: "OK",
+        });
+    });
+};
+
+
+ 
 
   return (
     <div className="bg-white">
@@ -245,7 +286,46 @@ export default function Header() {
                   ))}
                 </div>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                    {/* Profile System Here */}
+                    {
+                      user ? (
+                        <Menu as="div" className="relative ml-3">
+                        <div>
+                            <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                <span className="absolute -inset-1.5" />
+                                <span className="sr-only">Open user menu</span>
+                                <img
+                                    className="h-8 w-8 rounded-full"
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt=""
+                                />
+                  </Menu.Button>
+              </div>
+              <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+              >
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                          <div className="block px-4 py-2 text-sm text-gray-700">
+                              {user.email}
+                          </div>
+                      </Menu.Item>
+                      <Menu.Item>
+                          <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700">
+                              Logout
+                          </button>
+                      </Menu.Item>
+                  </Menu.Items>
+              </Transition>
+          </Menu>
+                      ) : (
+                        <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <a href="/login" className="-m-2 block p-2 font-medium text-gray-900">
                       Sign in
@@ -257,6 +337,7 @@ export default function Header() {
                     </a>
                   </div>
                 </div>
+                      )}
 
                 <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">
@@ -269,6 +350,8 @@ export default function Header() {
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
+              
+                    
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -437,16 +520,19 @@ export default function Header() {
                 </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a>
-                </div>
+               {/* Cart Icon */}
+      <div className="ml-4 flow-root lg:ml-6">
+        <button onClick={() => setOpen(true)} className="group -m-2 flex items-center p-2">
+          <ShoppingBagIcon
+            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+            aria-hidden="true"
+          />
+          <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+          <span className="sr-only">items in cart, view bag</span>
+        </button>
+      </div>
+
+                    {/* <Cart/> */}
               </div>
             </div>
           </div>
