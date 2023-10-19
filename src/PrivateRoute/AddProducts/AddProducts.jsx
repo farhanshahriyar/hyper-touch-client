@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 
 
 const AddProducts = () => {
@@ -44,10 +45,32 @@ const AddProducts = () => {
       body: JSON.stringify(newProduct)
     })
       .then(res => res.json())
+      // .then(data => {
+      //   console.log(data)
+      // })
+      // // .catch(err => console.log(err))
       .then(data => {
         console.log(data)
-      })
-      // .catch(err => console.log(err))
+        if(data.insertedId){
+            // alert('Coffee added successfully')
+            Swal.fire({
+              title: 'Success!',
+              text: 'Product added successfully',
+              icon: 'success',
+              confirmButtonText: 'Done'
+            })
+        } else {
+            // alert('Something went wrong')
+            Swal.fire({
+              title: 'Error!',
+              text: 'Do you want to continue',
+              icon: 'error',
+              confirmButtonText: 'Back'
+            })
+        }
+    })
+    // clear the form
+    form.reset()
   }
   
 

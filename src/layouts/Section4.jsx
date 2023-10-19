@@ -1,31 +1,8 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
-const products = [
-    {
-      id: 1,
-      name: 'Basic Tee',
-      href: '#',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-      imageAlt: "Front of men's Basic Tee in black.",
-      price: '$35',
-      color: 'Black',
-    },
-    // More products...
-  ]
+import { useLoaderData } from "react-router-dom"
+
   
   export default function Section4() {
+    const products = useLoaderData()
     return (
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -36,8 +13,8 @@ const products = [
               <div key={product.id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
+                    src={product.img1}
+                    alt={product.supplier}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
                 </div>
@@ -49,9 +26,9 @@ const products = [
                         {product.name}
                       </a>
                     </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                    <p className="mt-1 text-sm text-gray-500"><span className="text-black text-sm">Size :</span> {product.size}</p>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                  <p className="text-sm font-medium text-gray-900">{product.price} BDT</p>
                 </div>
               </div>
             ))}
