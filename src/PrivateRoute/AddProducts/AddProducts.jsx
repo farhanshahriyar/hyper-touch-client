@@ -34,7 +34,22 @@ const AddProducts = () => {
     }
 
     console.log(newProduct) // checking if the data is being captured or not // working fine
+
+    // send data to server
+    fetch('http://localhost:5000/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newProduct)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
+      // .catch(err => console.log(err))
   }
+  
 
   return (
     <div>
