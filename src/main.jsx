@@ -13,6 +13,8 @@ import Login from './pages/Login/Login.jsx'
 import Register from './pages/Register/Register.jsx'
 import AddProducts from './PrivateRoute/AddProducts/AddProducts.jsx';
 import ProductDetails from './pages/Products/ProductDetails/ProductDetails.jsx';
+import Store from './pages/Stores/Store.jsx';
+import Error from './components/Error/Error.jsx';
 // import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts.jsx';
 // import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
 
@@ -27,8 +29,16 @@ const router = createBrowserRouter([
         loader: () => fetch('http://localhost:5000/products').then(res => res.json()),
       },
       { 
+        path: "/error", 
+        element: <Error/>
+      },
+      { 
         path: "/contact", 
         element: <Contact/>
+      },
+      { 
+        path: "/stores", 
+        element: <Store/>
       },
       { 
         path: "/login", 
