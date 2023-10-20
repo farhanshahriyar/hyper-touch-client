@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom"
+import Swal from "sweetalert2";
 
 
 const UpdateProducts = () => {
@@ -8,13 +9,64 @@ const UpdateProducts = () => {
     name, highlights, supplier, price, size, category, details, color,img1,img2,img3,
     img4
   } = product;
+
+
+  const handleUpdateProduct = async (e) => {
+    e.preventDefault();
+
+    const updatedProduct = {
+      name: e.target.name.value,
+      highlights: e.target.highlights.value,
+      supplier: e.target.supplier.value,
+      price: e.target.price.value,
+      size: e.target.size.value,
+      category: e.target.category.value,
+      details: e.target.details.value,
+      color: e.target.color.value,
+      img1: e.target.img1.value,
+      img2: e.target.img2.value,
+      img3: e.target.img3.value,
+      img4: e.target.img4.value,
+    }
+
+     fetch(`http://localhost:5000/products/${_id}`, {
+      method: 'PUT',
+      headers: {
+          'content-type': 'application/json'
+      },
+      body: JSON.stringify(updatedProduct)
+  })
+    .then (res => res.json())
+    .then (data => {
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your Product has been updated',
+          confirmButtonText: 'Done'
+        })
+      }
+    })
+
+   
+  }
   
 
   return (
     <div>
       <div className="bg-[#F4F3F0] p-24">
+          {/* back route */}
+          <div className="flex items-center gap-x-2 mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 cursor-pointer" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" onClick={() => window.history.back()}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <p className="text-gray-500 cursor-pointer" onClick={() => window.history.back()}>Back</p>
+          </div>
           <h1 className=" text-xl font-extrabold">Update Product</h1>
-          <form >
+          {/* form */}
+          <form onSubmit={handleUpdateProduct} >
             {/* row 1 - name and quantity */}
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">

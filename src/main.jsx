@@ -20,6 +20,7 @@ import Terms from './pages/TermsCondition/Terms';
 import Return from './pages/Return/Return';
 import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts';
 import AllProducts from './PrivateRoute/ViewProducts/AllProducts';
+import Dashboard from './PrivateRoute/Dashboard/Dashboard';
 // import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
 
 
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
         loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`).then(res => res.json()),
       },
      
+      {
+        path: "/dashboard",
+        element: <Dashboard/>,
+      },
       {
         path: "/add-products",
         element: <AddProducts/>,

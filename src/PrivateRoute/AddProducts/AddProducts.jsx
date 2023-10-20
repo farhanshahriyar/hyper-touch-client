@@ -77,6 +77,15 @@ const AddProducts = () => {
   return (
     <div>
         <div className="bg-[#F4F3F0] p-24">
+           {/* back route */}
+           <div className="flex items-center gap-x-2 mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 cursor-pointer" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" onClick={() => window.history.back()}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <p className="text-gray-500 cursor-pointer" onClick={() => window.history.back()}>Back</p>
+          </div>
           <h1 className=" text-xl font-extrabold">Add Product</h1>
           <form onSubmit={handleProductAdd}>
             {/* row 1 - name and quantity */}

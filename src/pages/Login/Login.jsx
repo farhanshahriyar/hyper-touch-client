@@ -1,57 +1,176 @@
+// import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { BiShowAlt } from 'react-icons/bi';
+// import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
+// import auth from '../../firebase/firebase.config';
+// import Swal from 'sweetalert2';
+
+
+
+
+// const Login = () => {
+//     const [showPassword, setShowPassword] = useState(false);
+//     const navigate = useNavigate();
+//     const [registerError, setRegisterError] = useState(''); // error message show korar jonne
+//     // const { setUser } = useUser();
+
+//     // google sign in
+//     // const signInWithGoogle = () => {
+//     //     const googleProvider = new GoogleAuthProvider();
+    
+//     //     signInWithPopup(auth, googleProvider)
+//     //     .then((result) => {
+//     //         const user = result.user;
+//     //         localStorage.setItem('user', JSON.stringify(user)); 
+//     //         Swal.fire({ 
+//     //             icon: 'success',
+//     //             title: 'Success',
+//     //             text: 'Logged in successfully!',
+//     //         });
+//     //         navigate('/');
+//     //     })
+//     //     .catch((error) => {
+//     //         setRegisterError(error.message);
+//     //         Swal.fire({
+//     //             icon: 'error',
+//     //             title: 'Oops...',
+//     //             text: error.message,
+//     //         });
+//     //     });
+//     // }
+
+//     const [user, setUser] = useState(null)
+//     const auth = getAuth();
+//     const provider = new GoogleAuthProvider();
+
+//     // sign in
+//     const handleGoogleSignIn = () => {
+//         // console.log('google mama is coming dude...')
+//         signInWithPopup(auth, provider)
+//         .then(result => {
+//             const {displayName, email, photoURL} = result.user;
+//             const userCredential = {
+//                 name: displayName,
+//                 email: email,
+//                 photo: photoURL
+//             };
+//         })
+//         .catch (error => {
+//             console.log( 'tui error khaisot vai, ei karone', error.message)
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Oops...',
+//                 text: error.message,
+//               })
+//         })
+//     }
+
+    
+
+//     const handleLogin = (e) => {
+//         e.preventDefault();
+//         const email = e.target.email.value;
+//         const password = e.target.password.value;
+//         // console.log(email, password);
+        
+
+//         // reset error and success message
+//         setRegisterError('');
+
+
+//         // add validation 
+//         signInWithEmailAndPassword (auth, email, password)
+//         .then((userCredential) => {
+//             // Signed in 
+//             const user = userCredential.user;
+//             // console.log(user);
+//             localStorage.setItem('user', JSON.stringify(user)); // Store user in local storage
+//             // setUser(user);
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Logged in successfully!',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//               })
+//             // Navigate korbe root directory after successful registration houar por
+//             navigate('/');
+
+//         })  
+//         .catch((error) => {
+//             // Handle errors jodi khay 
+//             // console.error("Error registering the user:", error.message);
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Oops...',
+//                 text: error.message,
+//               })
+//             setRegisterError(error.message);
+//         });   
+//     }
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BiShowAlt } from 'react-icons/bi';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import auth from '../../firebase/firebase.config';
 import Swal from 'sweetalert2';
-
-
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const [registerError, setRegisterError] = useState(''); // error message show korar jonne
-    // const { setUser } = useUser();
+    const [registerError, setRegisterError] = useState('');
+    const [user, setUser] = useState(null)
+    const provider = new GoogleAuthProvider();
+
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, provider)
+        .then(result => {
+            const {displayName, email, photoURL} = result.user;
+            const userCredential = {
+                name: displayName,
+                email: email,
+                photo: photoURL
+            };
+            setUser(userCredential); // Set the user data in state
+            navigate('/'); // Navigate to root after successful login
+        })
+        .catch (error => {
+            console.log('Error encountered:', error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.message,
+            })
+        });
+    }
 
     const handleLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        // console.log(email, password);
-        
 
-        // reset error and success message
         setRegisterError('');
 
-
-        // add validation 
-        signInWithEmailAndPassword (auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in 
             const user = userCredential.user;
-            // console.log(user);
-            localStorage.setItem('user', JSON.stringify(user)); // Store user in local storage
-            // setUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
             Swal.fire({
                 icon: 'success',
                 title: 'Logged in successfully!',
                 showConfirmButton: false,
                 timer: 1500
-              })
-            // Navigate korbe root directory after successful registration houar por
+            });
             navigate('/');
-
-        })  
+        })
         .catch((error) => {
-            // Handle errors jodi khay 
-            // console.error("Error registering the user:", error.message);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.message,
-              })
+            });
             setRegisterError(error.message);
-        });   
+        });
     }
 
   return (
@@ -93,6 +212,10 @@ const Login = () => {
                 <button type="submit" className="flex w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white bg-black hover:bg-gray-700">Sign in</button>
             </div>
             </form>
+            <div>
+                <button onClick={handleGoogleSignIn}
+                 type="submit" className="mt-5 flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-gray-700 hover:border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in Google</button>
+            </div>
 
             {
                 registerError && <p className="mt-4 text-center text-sm text-red-600">{registerError}</p>

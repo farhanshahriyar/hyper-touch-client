@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword} from 'firebase/auth';
 import auth from '../../firebase/firebase.config.js';
 import { useNavigate } from 'react-router-dom';
 import { BiShowAlt } from 'react-icons/bi';
@@ -12,6 +12,43 @@ const Register = () => {
     const [registerError, setRegisterError] = useState(''); // error message show korar jonne
     // const [success, setSuccess] = useState(''); // success message show korar jonne
 
+   
+
+    // const signupWithGoogle = () => {
+    //     const googleProvider = new GoogleAuthProvider();
+    
+    //     signInWithPopup(auth, googleProvider)
+    //     .then((result) => {
+    //         const user = result.user;
+    //         // Check if this is a new user
+    //         if (result.additionalUserInfo.isNewUser) {
+    //             // Add user to users table in database
+    //             const { displayName, email, photoURL } = user;
+    //             const newUser = {
+    //                 name: displayName,
+    //                 email: email,
+    //                 photo: photoURL
+    //             };
+    //         localStorage.setItem('user', JSON.stringify(user)); 
+    //         Swal.fire({ 
+    //             icon: 'success',
+    //             title: 'Success',
+    //             text: 'Signed up successfully!',
+    //         });
+    //         navigate('/');
+    //     })
+    //     .catch((error) => {
+    //         setRegisterError(error.message);
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Oops...',
+    //             text: error.message,
+    //         });
+    //     });
+    // }
+    
+
+    // Register korar jonne
     const handleRegister = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -135,7 +172,8 @@ const Register = () => {
             </form>
             <p className="mt-5 text-center text-sm text-gray-500"> Or continue with</p>
             <div>
-                <button type="submit" className="mt-5 flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-gray-700 hover:border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in Google</button>
+                <button
+                 type="submit" className="mt-5 flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-gray-700 hover:border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up Google</button>
             </div>
             {
                 registerError && <p className=" text-center text-sm text-red-600">{registerError}</p>
