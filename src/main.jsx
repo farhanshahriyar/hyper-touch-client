@@ -21,6 +21,7 @@ import Return from './pages/Return/Return';
 import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts';
 import AllProducts from './PrivateRoute/ViewProducts/AllProducts';
 import Dashboard from './PrivateRoute/Dashboard/Dashboard';
+import AuthProvider from './firebase/AuthProvider';
 // import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
 
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root/>,
+    errorElement: <Error/>,
     children: [
       {
         path: "/",
@@ -101,6 +103,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )
