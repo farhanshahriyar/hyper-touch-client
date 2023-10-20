@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+// import App from './App.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -16,8 +16,9 @@ import ProductDetails from './pages/Products/ProductDetails/ProductDetails.jsx';
 import Store from './pages/Stores/Store.jsx';
 import Error from './components/Error/Error.jsx';
 import Cart from './components/Cart/Cart.jsx';
-// import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts.jsx';
 // import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
+// import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -54,8 +55,9 @@ const router = createBrowserRouter([
         element: <Register/>,
       },
       {
-        path: "/product-details",
+        path: "/products/:id",
         element: <ProductDetails/>,
+        loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`).then(res => res.json()),
       },
      
       {
@@ -69,6 +71,7 @@ const router = createBrowserRouter([
       // {
       //   path: "/delete-products",
       //   element: <DeleteProducts/>,
+      //   loader: () => fetch('http://localhost:5000/products').then(res => res.json()),
       // }
     ]
   },
