@@ -132,6 +132,12 @@ const Login = () => {
                 photo: photoURL
             };
             setUser(userCredential); // Set the user data in state
+            Swal.fire({
+                icon: 'success',
+                title: 'Logged in successfully!',
+                showConfirmButton: false,
+                timer: 1500
+            });
             navigate('/'); // Navigate to root after successful login
         })
         .catch (error => {
