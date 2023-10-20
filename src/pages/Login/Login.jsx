@@ -212,6 +212,7 @@ const Login = () => {
                 <button type="submit" className="flex w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white bg-black hover:bg-gray-700">Sign in</button>
             </div>
             </form>
+            <p className="mt-5 text-center text-sm text-gray-500"> Or continue with</p>
             <div>
                 <button onClick={handleGoogleSignIn}
                  type="submit" className="mt-5 flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white hover:bg-gray-700 hover:border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in Google</button>
