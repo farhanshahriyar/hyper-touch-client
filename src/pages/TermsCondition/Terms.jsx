@@ -1,34 +1,45 @@
-
-import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
-
 export default function Terms() {
+
+
   return (
-    <div className="max-w-xl mx-auto mt-5 p-4">
-      <h1 className="mb-4 text-2xl font-semibold text-gray-900">Terms and Conditions</h1>
-      {[1, 2, 3].map((item) => (
-        <Disclosure as="div" className="mb-4 border rounded" key={item}>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                Question #{item}
-                <ChevronUpIcon
-                  className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-gray-500`}
-                />
-              </Disclosure.Button>
-              <Disclosure.Panel as="div" className="p-4 text-sm text-gray-500">
-                <strong>This is the item #{item}s accordion body.</strong> It
-                is hidden by default, until the appropriate classes are added.
-                The transitions and appearances are controlled via TailwindCSS.
-                You can modify any of this with custom CSS or Tailwind utilities.
-                Its also worth noting that just about any HTML can go
-                within the accordion body.
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-      ))}
+    
+    <div className="bg-gray-100 py-8">
+
+    <div className="max-w-2xl mx-auto px-4">
+        <h1 className="text-2xl font-bold mb-8">Terms and Conditions</h1>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+    
+            <div className="border-b-2 border-gray-200 py-4">
+                <button className="flex justify-between w-full text-left">
+                    <span className="text-gray-700">What is HyperTouch Fashion Store?</span>
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a1 1 0 01-.707-.293l-3-3a1 1 0 011.414-1.414L10 9.586l2.293-2.293a1 1 0 011.414 1.414l-3 3A1 1 0 0110 12z" clipRule="evenodd" fillRule="evenodd"></path>
+                    </svg>
+                </button>
+                <div className="mt-2">
+                    HyperTouch Fashion Store is a demo e-commerce website built with ReactJS, TailwindCSS and CommerceJS.
+                </div>
+            </div>
+
+         
+            <div className="border-b-2 border-gray-200 py-4">
+                <button className="flex justify-between w-full text-left">
+                    <span className="text-gray-700">How to use this HyperTouch Website</span>
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a1 1 0 01-.707-.293l-3-3a1 1 0 011.414-1.414L10 9.586l2.293-2.293a1 1 0 011.414 1.414l-3 3A1 1 0 0110 12z" clipRule="evenodd" fillRule="evenodd"></path>
+                    </svg>
+                </button>
+                <div className="mt-2">
+                    To use this website, you need to create an account. Once you have created an account, you can add items to your cart and checkout. You can also view your order history.
+                </div>
+            </div>
+
+         
+        </div>
     </div>
+
+</div>
   );
 }
 

@@ -18,8 +18,10 @@ import Error from './components/Error/Error.jsx';
 import Cart from './components/Cart/Cart.jsx';
 import Terms from './pages/TermsCondition/Terms';
 import Return from './pages/Return/Return';
+import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts';
+import AllProducts from './PrivateRoute/ViewProducts/AllProducts';
 // import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
-// import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -74,10 +76,15 @@ const router = createBrowserRouter([
         path: "/add-products",
         element: <AddProducts/>,
       },
-      // {
-      //   path: "/update-products",
-      //   element: <UpdateProducts/>,
-      // },
+      {
+        path: '/all-addedproducts',
+        element: <AllProducts/>,
+      },
+      {
+        path: "/update-products",
+        element: <UpdateProducts/>,
+        loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`).then(res => res.json()),
+      },
       // {
       //   path: "/delete-products",
       //   element: <DeleteProducts/>,
