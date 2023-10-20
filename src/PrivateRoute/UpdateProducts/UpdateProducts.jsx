@@ -29,7 +29,7 @@ const UpdateProducts = () => {
       img4: e.target.img4.value,
     }
 
-     fetch(`http://localhost:5000/products/${_id}`, {
+     fetch(`https://hypertouch-server.vercel.app/products/${_id}`, {
       method: 'PUT',
       headers: {
           'content-type': 'application/json'

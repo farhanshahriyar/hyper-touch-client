@@ -34,7 +34,7 @@ export default function Contact() {
 
     // console.log(newContact) // checking if the data is being captured or not // working fine
 
-    fetch('http://localhost:5000/contacts', {
+    fetch('https://hypertouch-server.vercel.app/contacts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

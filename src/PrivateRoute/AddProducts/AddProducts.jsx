@@ -37,7 +37,7 @@ const AddProducts = () => {
     // console.log(newProduct) // checking if the data is being captured or not // working fine
 
     // send data to server
-    fetch('http://localhost:5000/products', {
+    fetch('https://hypertouch-server.vercel.app/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

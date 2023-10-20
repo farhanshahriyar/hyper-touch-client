@@ -9,7 +9,7 @@ const ProductLists = () => {
     useEffect(() => {
         const getProducts = async () => {
           try {
-            const res = await fetch('http://localhost:5000/products');
+            const res = await fetch('https://hypertouch-server.vercel.app/products');
             if (!res.ok) throw new Error("Network response was not ok");
             const data = await res.json();
             setProducts(data);

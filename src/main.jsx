@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home/>,
-        loader: () => fetch('http://localhost:5000/products').then(res => res.json()),
+        loader: () => fetch('https://hypertouch-server.vercel.app/products').then(res => res.json()),
       },
       { 
         path: "/error", 
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       {
         path: "/products/:id",
         element: <ProductDetails/>,
-        loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`).then(res => res.json()),
+        loader: ({params}) => fetch(`https://hypertouch-server.vercel.app/products/${params.id}`).then(res => res.json()),
       },
      
       {
@@ -90,12 +90,12 @@ const router = createBrowserRouter([
       {
         path: "/update-product/:id",
         element: <UpdateProducts/>,
-        loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`).then(res => res.json()),
+        loader: ({params}) => fetch(`https://hypertouch-server.vercel.app/products/${params.id}`).then(res => res.json()),
       },
       // {
       //   path: "/delete-products",
       //   element: <DeleteProducts/>,
-      //   loader: () => fetch('http://localhost:5000/products').then(res => res.json()),
+      //   loader: () => fetch('https://hypertouch-server.vercel.app/products').then(res => res.json()),
       // }
     ]
   },

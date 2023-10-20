@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
             //     'Your file has been deleted.',
             //     'success'
             //   console.log("file has been deleted.")
-                fetch(`http://localhost:5000/products/${_id}`, {
+                fetch(`https://hypertouch-server.vercel.app/products/${_id}`, {
                     method: 'DELETE'
                 })
                 .then(res => res.json())

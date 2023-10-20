@@ -1,14 +1,15 @@
-import { useLoaderData } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 
   
   export default function Section3() {
-    const products = useLoaderData()
+      const products = useLoaderData()
+  
     return (
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-2">Shop by Category</h2>
-  
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-2">Mostly Shops</h2>
+          <Link to="/stores">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
               <a key={product.id} href={product.href} className="group">
@@ -24,6 +25,7 @@ import { useLoaderData } from "react-router-dom"
               </a>
             ))}
           </div>
+          </Link>
         </div>
       </div>
     )
