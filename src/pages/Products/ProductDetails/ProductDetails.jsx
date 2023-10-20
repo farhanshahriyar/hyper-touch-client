@@ -1,5 +1,8 @@
 
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { getAuth } from "firebase/auth";
+import { useEffect, useState } from 'react';
+import Swal from "sweetalert2";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -7,6 +10,32 @@ function classNames(...classes) {
 
 export default function ProductDetails() {
     const product = useLoaderData();
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const unsubscribe = getAuth().onAuthStateChanged((user) => {
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
+      });
+      return () => unsubscribe();
+    }, []);
+
+    const paymentHandler = () => {
+      if (!user) {
+        navigate('/login');
+       Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You must login first!',
+        })
+        return;
+      }
+    }
+
 
     if (!product) {
         return <div>Loading...</div>; // Show a loading state if product data hasn't been loaded yet
@@ -102,6 +131,25 @@ export default function ProductDetails() {
                         <p className="text-base text-gray-900">{details}</p>
                     </div>
                 </div> */}
+                   {/* purchase btn */}
+                   <div className="mt-1">
+                    <button onClick={paymentHandler}
+                        type="submit"
+                        className="mt-4 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-black hover:bg-gray-700"
+                    >
+                        Purchase Now
+                    </button>
+                    {/* <button 
+                        type="submit"
+                        onClick={paymentHandler}
+                        className={`mt-4 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium ${
+                          user ? "bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white" : "bg-gray-400"
+                        }`}
+                        disabled={!user}
+                    >
+                        Buy Ticket
+                    </button> */}
+                </div>
 
                 {/* Highlights */}
                 <div className="mt-10">
@@ -119,6 +167,7 @@ export default function ProductDetails() {
                         </ul>
                     </div>
                 </div>
+               
             </div>
           </div>
 

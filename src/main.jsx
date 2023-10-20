@@ -16,6 +16,8 @@ import ProductDetails from './pages/Products/ProductDetails/ProductDetails.jsx';
 import Store from './pages/Stores/Store.jsx';
 import Error from './components/Error/Error.jsx';
 import Cart from './components/Cart/Cart.jsx';
+import Terms from './pages/TermsCondition/Terms';
+import Return from './pages/Return/Return';
 // import DeleteProducts from './PrivateRoute/DeleteProducts/DeleteProducts.jsx';
 // import UpdateProducts from './PrivateRoute/UpdateProducts/UpdateProducts.jsx';
 
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       { 
         path: "/cart-page", 
         element: <Cart/>
+      },
+      { 
+        path: "/terms-condition", 
+        element: <Terms/>
+      },
+      { 
+        path: "/return", 
+        element: <Return/>
       },
       { 
         path: "/contact", 

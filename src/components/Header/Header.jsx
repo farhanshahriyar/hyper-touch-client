@@ -560,8 +560,8 @@ export default function Header() {
   // Moved the navigation array inside the component
   const navigation = [
     { name: 'Stores', href: '/stores', current: location.pathname === '/stores' },
-    // { name: 'Price', href: '/price', current: location.pathname === '/price' },
-    // { name: 'About', href: '/about', current: location.pathname === '/about' },
+    { name: 'Return & Refund', href: '/return', current: location.pathname === '/return' },
+    { name: 'Terms & Condition', href: '/terms-condition', current: location.pathname === '/terms-condition' },
     { name: 'Contact', href: '/contact', current: location.pathname === '/contact' },
   ];
 
