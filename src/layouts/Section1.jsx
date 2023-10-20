@@ -81,7 +81,7 @@ export default function Section1() {
                 </div>
   
                 <a
-                  href="#"
+                  href="/stores"
                   className="inline-block rounded-md border border-transparent bg-black px-8 py-3 text-center font-medium text-white hover:bg-white hover:text-black"
                 >
                   Shop Collection
