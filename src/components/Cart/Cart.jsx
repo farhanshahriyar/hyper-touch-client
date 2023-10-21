@@ -1,33 +1,49 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { AuthContext } from '../../firebase/AuthProvider';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
+
+
 
 const Cart = () => {
-  const [open, setOpen] = useState(true)
+  const { setProducts, products } = useContext(AuthContext);
+  console.log(products)
+  const navigate = useNavigate();
+
+  const handleContinueShopping = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Continue Shopping',
+      text: 'You can continue shopping now!',
+    })
+    navigate('/stores');
+  }
+
+  const handleCheckout = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Checkout',
+      text: 'Product purchased successfully! You can continue shopping',
+    })
+    localStorage.removeItem('products');
+    setProducts([]);
+    navigate('/stores');
+  }
+
+  const handleRemoverProduct = (id) => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Remove',
+      text: 'You can remove product now!',
+    })
+   const newProducts = products.filter((product) => product._id !== id);
+   setProducts(newProducts);
+   localStorage.setItem('products', JSON.stringify(newProducts));
+   
+  }
+
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center">
@@ -53,11 +69,11 @@ const Cart = () => {
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
                             {products.map((product) => (
-                              <li key={product.id} className="flex py-6">
+                              <li key={product._id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
+                                    src={product.img1}
+                                    alt={product.name}
                                     className="h-full w-full object-cover object-center"
                                   />
                                 </div>
@@ -76,7 +92,7 @@ const Cart = () => {
                                     <p className="text-gray-500">Qty {product.quantity}</p>
 
                                     <div className="flex">
-                                      <button
+                                      <button onClick={()=>handleRemoverProduct(product._id)}
                                         type="button"
                                         className="font-medium text-black hover:text-gray-500"
                                       >
@@ -93,13 +109,24 @@ const Cart = () => {
                     </div>
 
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                      <div className="flex justify-between text-base font-medium text-gray-900">
-                        <p>Subtotal</p>
-                        <p>$262.00</p>
+                      <div className="">
+                        <div className='flex justify-between text-base font-medium text-gray-900"'>
+                        <p className="font-bold">Items Total</p>
+                        <p>BDT {products.reduce((pre,cur)=>pre+(cur.quantity * parseInt(cur.price)), 0)}</p>
+                        </div>
+                        {/* <div className='flex justify-between text-base font-medium text-gray-900"'>
+                        <p className="font-bold">Shipping Fee</p>
+                        <p>BDT {products.reduce((pre,cur)=>pre+(cur.quantity * parseInt(cur.price)), 0) * 0.1}</p>
+                        </div>
+                        <div className='flex justify-between text-base font-medium text-gray-900"'>
+                        <p className='font-bold'>Total Payment</p>
+                        <p>{products.reduce((pre,cur)=>pre+(cur.quantity * parseInt(cur.price)), 0) + (products.reduce((pre,cur)=>pre+(cur.quantity * parseInt(cur.price)), 0) * 0.1)}</p>
+                        </div> */}
+                        {/* <p>BDT {products.reduce((pre,cur)=>pre+(cur.quantity * parseInt(cur.price)), 0)}</p> */}
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
-                        <a
+                        <a onClick={handleCheckout}
                           href="#"
                           className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700"
                         >
@@ -112,7 +139,7 @@ const Cart = () => {
                           <button
                             type="button"
                             className="font-medium text-black hover:text-gray-500"
-                            onClick={() => setOpen(false)}
+                            onClick={handleContinueShopping}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>

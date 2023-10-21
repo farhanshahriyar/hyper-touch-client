@@ -1,14 +1,16 @@
 
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Swal from "sweetalert2";
+import { AuthContext } from '../../../firebase/AuthProvider';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function ProductDetails() {
+  const { setProducts, products } = useContext(AuthContext);
     const product = useLoaderData();
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
@@ -33,6 +35,25 @@ export default function ProductDetails() {
           text: 'You must login first!',
         })
         return;
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Product Added Successfully!',
+        })
+      }
+      const exist = products.find((p) => p._id === product._id);
+      if (!exist) {
+        const newProduct = { ...product, quantity: 1 };
+      const newProducts = [...products, newProduct]; 
+      setProducts(newProducts);
+      localStorage.setItem('products', JSON.stringify(newProducts));
+      } else {
+        const newProducts = products.map((p) =>
+          p._id === product._id ? { ...exist, quantity: exist.quantity + 1 } : p
+        );
+        setProducts(newProducts);
+        localStorage.setItem('products', JSON.stringify(newProducts));
       }
     }
 
@@ -43,7 +64,7 @@ export default function ProductDetails() {
 
     const { 
       name,
-      highlights,
+      // highlights,
       supplier,
       price,
       size,
@@ -152,21 +173,21 @@ export default function ProductDetails() {
                 </div>
 
                 {/* Highlights */}
-                <div className="mt-10">
+                {/* <div className="mt-10">
                     <h3 className="text-base text-lg underline text-black">Highlights</h3>
                     <div className="mt-4">
                         <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                        {/* {
+                        {
                           highlights.map((highlight) => (
                             <li key={highlight} className="text-gray-400">
                               <span className="text-gray-900">{highlights}</span>
                             </li>
                           ))
-                        } */}
+                        }
 
                         </ul>
                     </div>
-                </div>
+                </div> */}
                
             </div>
           </div>

@@ -125,11 +125,11 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithPopup(auth, provider)
         .then(result => {
-            const {displayName, email, photoURL} = result.user;
+            const { displayName, email } = result.user;
             const userCredential = {
                 name: displayName,
                 email: email,
-                photo: photoURL
+                // photo: photoURL
             };
             setUser(userCredential); // Set the user data in state
             Swal.fire({

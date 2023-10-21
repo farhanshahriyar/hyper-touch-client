@@ -542,18 +542,20 @@
 //   )
 // }
 
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useContext } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { Link, useLocation } from 'react-router-dom';
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../firebase/AuthProvider';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Header() {
+  const { setProducts, products } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const location = useLocation();
 
@@ -724,7 +726,7 @@ const handleLogout = () => {
              className="h-6 w-6 flex-shrink-0 text-white group-hover:text-gray-500"
             aria-hidden="true"
           />
-           <span className="ml-2 text-sm font-medium text-white group-hover:text-gray-800">0</span>
+           <span className="ml-2 text-sm font-medium text-white group-hover:text-gray-800">{products.reduce((pre,cur)=>pre+cur.quantity, 0)}</span>
           <span className="sr-only">items in cart, view bag</span>
          </button>
         </Link>
